@@ -22,9 +22,8 @@ module.exports.Pi=3.1416;
 
 console.log(module.exports);
 
-module.exports.message=() => {
-    const name = "Subrata";
-    const age = 23;
-    //return name + ' is ' + age + 'years old.';
-    };
+module.exports.message={
+    name:"Subrata",
+    age : 23
+    }
 

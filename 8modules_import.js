@@ -22,6 +22,6 @@ const newobj=obj; // or we can asign another way
 const {age,name1,city}=obj;  // destructturing
 
 //export file 
-const {message}=require('./7modules_export');
-console.log(message.name); 
+const ok=require('./7modules_export');
+console.log(ok.message.name); 
 
