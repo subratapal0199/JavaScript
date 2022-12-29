@@ -13,9 +13,9 @@ module.exports.readData=()=>{
 //write file function(for write)
 module.exports.writeData=({data})=>{
     return new Promise((resolve,reject)=>{
-        fs.writeFile('./db/db.students.json'),JSON.stringify(data),(err)=>{
+        fs.writeFile('./db/db.students.json',JSON.stringify(data),(err)=>{
             if(err) reject(err);
-            else resolve('Success');
-        }
+            else resolve('success');
+        })
     });
 }

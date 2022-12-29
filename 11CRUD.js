@@ -32,10 +32,8 @@ app.post('/',async(req,res)=>{
     try{
         const students=await readData();
         students.push(req.body);
-        const result=await writeData({
-            data:students
-        });
-        if(result==='Success'){
+        const result=await writeData({ data:students});
+        if(result === 'success'){
             return res.status(201).send({
                 message:'Student created Sucecssfully',
                 data:req.body
@@ -44,9 +42,25 @@ app.post('/',async(req,res)=>{
     }catch(err){
         return res.status(500).send({
             error:err
-        })
+        });
     }
-})
+});
+
+//Particularlly view only one student information
+app.get('/:id',async(req,res)=>{
+    const id = req.params.id;
+    try {
+        const all_Stds = await readData();
+        const student = all_Stds.filter((item) => item.id === id)[0];
+        console.log(student);
+        if (student) return res.status(200).send(student);
+        return res.status(404).send('--------No Data Found---------');
+    } catch (err) {
+        return res.status(500).send({
+            error: err
+        });
+    }
+});
 
 
 
