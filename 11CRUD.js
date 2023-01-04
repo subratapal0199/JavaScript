@@ -62,7 +62,58 @@ app.get('/:id',async(req,res)=>{
     }
 });
 
+//update date : so we have to recive a id , using that id we can chaange the information ,there are two function
+//1)put() 2)patch()
+/* put()-> its means the whole data is replace when the data is comming
+patch()-> its means only updated data is replace not the whole object*/
 
+app.patch('/:id',async(req,res)=>{
+    const id=req.params.id;
+    try{
+        const students=await readData();
+        const newstudent=students.map(item=>{
+        if(item.id===id)
+        return{
+            ...item,
+            ...req.body,
+        }
+        return item;
+    })
+    const student=newstudent.filter(item=>item.id===id)[0];
+    let result=null;
+    if(student) result=await writeData({data:newstudent});
+    if(result) return res.status(200).send({
+        message:"Student updated successfully",
+        data:student
+    });
+    return res.status(404).send("**********No Data Found*************");
+    }catch(err){
+        return res.status(500).send({
+            error: err
+        })
+    }
+});
+
+/*Delete a data from database (json). we have to recive a id which we want to delete */
+app.delete('/:id',async(req,res)=>{
+    const id=req.params.id;
+    try{
+        const students=await readData();
+        const student=students.filter(item=>item.id===id)[0];
+        const newstudent=students.filter(item=>item.id!==id);
+        let result=null;
+        if(student) result=await writeData({data:newstudent});
+        if(result) return res.status(200).send({
+            message: "Student deleted successfully"
+        });
+        return res.status(404).send("----------No Data Found--------");
+
+    }catch(err){
+        return res.status(500).send({
+            error: err
+        })
+    }
+})
 
 app.listen(8080,()=>{
     console.log("Listening on port number 8080!");
