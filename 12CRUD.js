@@ -41,3 +41,9 @@ app.delete('/:id',deleteStudent);
 app.listen(8080,()=>{
     console.log("Listening on port number 8080!");
 })
+
+
+/*it is also inconvinent because every time we have to call filename and path, in that case it is difficult to
+manage every file . To overcome this, it means to hendel the router using routes
+So, create a folder, name-routes and inside this folder create another file, name student.routes.js. Now
+we import the express for this routes  */
